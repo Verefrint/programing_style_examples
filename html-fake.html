@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Простой пример с кнопкой</title>
+</head>
+<body>
+  <h1>Пример с кнопкой</h1>
+  
+  <!-- Стандартная кнопка -->
+  <button id="myButton" style="text-decoration: none; padding: 10px 20px; background-color: #4CAF50; color: white; border-radius: 5px; border-color: 'none'" >Нажми меня</button>
+
+  <script>
+    document.getElementById('myButton').addEventListener('click', function() {
+      alert('Кнопка нажата!');
+    });
+  </script>
+  
+  <h1>Пример с псевдокнопкой</h1>
+  
+  <!-- Псевдокнопка, реализованная через ссылку -->
+  <a href="#" id="fakeButton" style="text-decoration: none; padding: 10px 20px; background-color: #4CAF50; color: white; border-radius: 5px;">Псевдокнопка</a>
+
+  <script>
+    document.getElementById('fakeButton').addEventListener('click', function(event) {
+      event.preventDefault();  // Чтобы ссылка не вела на пустую страницу
+      alert('Псевдокнопка нажата!');
+    });
+  </script> 
+  
+</body>
+</html>
