@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Why simple text locator fails</title>
+</head>
+<body>
+
+  <form class="form login-form">
+    <h2>Login</h2>
+    <input type="text" placeholder="Username">
+    <button type="submit">Submit</button>
+  </form>
+
+  <form class="form signup-form">
+    <h2>Signup</h2>
+    <input type="email" placeholder="Email">
+    <button type="submit">Submit</button>
+  </form>
+
+  <button>Submit</button>
+
+  <button id="dynamic-btn">Submit</button>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('dynamic-btn').textContent = 'Submit ✔';
+    }, 2000);
+  </script>
+
+</body>
+</html>
