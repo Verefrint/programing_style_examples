@@ -2,15 +2,20 @@ version: '3.8'
 
 services:
   mattermost:
-    image: mattermost/mattermost-team-edition:latest
+    image: mattermost/mattermost-team-edition:release-11.2
     environment:
-      - MM_DB_TYPE=postgres
-      - MM_DB_NAME=mattermost_test
-      - MM_DB_USER=mmuser
-      - MM_DB_PASSWORD=mmuser_password
-      - MM_DB_HOST=db:5432
-      - MM_DB_PORT=5432
-      - MM_DB_SSL_MODE=disable
+      # Database configuration using the correct variable names
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mmuser:mmuser_password@db:5432/mattermost_test?sslmode=disable&connect_timeout=10
+      
+      # Site URL (optional but recommended)
+      - MM_SERVICESETTINGS_SITEURL=http://localhost:8065
+      
+      # Bleve settings for search indexing
+      - MM_BLEVESETTINGS_INDEXDIR=/mattermost/bleve-indexes
+      
+      # Timezone
+      - TZ=UTC
     ports:
       - "8065:8065"
     depends_on:
@@ -18,10 +23,16 @@ services:
     networks:
       - mattermost_network
     volumes:
+      # Mount more volumes like in the official example
       - mattermost_data:/mattermost/data
+      - mattermost_config:/mattermost/config:rw
+      - mattermost_logs:/mattermost/logs:rw
+      - mattermost_plugins:/mattermost/plugins:rw
+      - mattermost_client_plugins:/mattermost/client/plugins:rw
+      - mattermost_bleve_indexes:/mattermost/bleve-indexes:rw
 
   db:
-    image: postgres:latest
+    image: postgres:15.15
     environment:
       - POSTGRES_USER=mmuser
       - POSTGRES_PASSWORD=mmuser_password
@@ -37,4 +48,9 @@ networks:
 
 volumes:
   mattermost_data:
+  mattermost_config:
+  mattermost_logs:
+  mattermost_plugins:
+  mattermost_client_plugins:
+  mattermost_bleve_indexes:
   postgres_data:
